@@ -1,0 +1,17 @@
+OSI & TCP/IP model
+Học kỹ chức năng 7 tầng OSI và 4 tầng TCP/IP. Đây là nền tảng để hiểu mọi thứ sau này.
+2
+Địa chỉ IP & Subnetting
+Luyện tính subnet mask, VLSM, CIDR cho thành thạo. Phần này quyết định bạn có làm được bài thi/lab hay không.
+3
+Giao thức cơ bản
+TCP/UDP, DNS, DHCP, ARP, HTTP/HTTPS — hiểu cách chúng hoạt động và khi nào dùng cái nào.
+4
+Cài Packet Tracer & thực hành
+Dựng mạng đơn giản: PC - Switch - Router, ping thông, sau đó thêm VLAN và định tuyến.
+5
+Học Linux cơ bản
+Cài Ubuntu Server trên máy ảo, làm quen lệnh terminal và cấu hình network qua dòng lệnh.
+6
+Đăng ký khóa CCNA 1 (NetAcad)
+Bắt đầu lộ trình chứng chỉ chính thức, học đến đâu làm lab đến đó.

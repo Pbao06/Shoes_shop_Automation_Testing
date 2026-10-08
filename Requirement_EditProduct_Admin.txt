@@ -1,0 +1,44 @@
+Name — CAN VALIDATE
+Required (must not be empty)
+Length: 3–100 characters
+Characters: Letters (incl. Unicode), numbers, spaces, hyphens, apostrophes, dots
+Test cases: empty, 2 chars, 101 chars, special chars like @, #, <
+Slug — CAN VALIDATE
+Optional (can be left blank)
+Length: 3–100 characters (if provided)
+Format: lowercase letters, numbers, hyphens only (e.g., blue-suede-shoes)
+Test cases: uppercase, underscores, spaces, special chars
+Price — CAN VALIDATE
+Required (must not be empty)
+Number: must be a valid number
+Range: 0 ≤ x ≤ 999,999.99
+Test cases: empty, negative, non-numeric, > 999999.99
+Sale Price — CAN VALIDATE
+Optional (can be left blank)
+Number: must be a valid number (if provided)
+Range: 0 ≤ x ≤ 999,999.99
+Logic: must be ≤ Price (if both set)
+Test cases: empty, negative, > price, non-numeric
+Brand — CAN VALIDATE
+Required (must select a non-empty option)
+Test cases: "Select brand" default option submitted
+Category — CAN VALIDATE
+Required (must select a non-empty option)
+Test cases: "Select category" default option submitted
+Status — CAN VALIDATE
+Required (must pick Active or Inactive)
+Test cases: n/a (always has a value by default)
+Color — CAN VALIDATE
+Optional (can be left blank)
+Length: max 50 characters (if provided)
+Characters: letters, spaces, hyphens only
+Test cases: >50 chars, special chars like @, #, <
+Description — CAN VALIDATE
+Optional (can be left blank)
+Length: max 2,000 characters
+Test cases: >2000 chars
+CANNOT VALIDATE (requires backend or file input)
+Images: validation of image file type/size and primary image selection happens via adminProductService — needs mock setup
+Brand/Category existence: dropdowns are populated from API — needs mock setup for useAdminBrands/useAdminCategories
+Test IDs added (for practice testing)
+edit-name-input, edit-slug-input, edit-description-textarea, edit-price-input, edit-sale-price-input, edit-color-input, edit-brand-select, edit-category-select, edit-status-select

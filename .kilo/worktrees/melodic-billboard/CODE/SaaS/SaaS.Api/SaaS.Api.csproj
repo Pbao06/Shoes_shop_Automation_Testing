@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Thư viện OpenAPI mặc định của .NET 9 -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.18" />
+
+    <!-- 1. JWT Authentication -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.9" />
+
+    <!-- 2. Entity Framework Core & SQL Server (Dành cho Migration & DB) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+
+    <!-- 3. Swagger / Swashbuckle (Giao diện UI cho API) -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.0" />
+
+    <!-- 4. BCrypt để băm mật khẩu -->
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+</Project>

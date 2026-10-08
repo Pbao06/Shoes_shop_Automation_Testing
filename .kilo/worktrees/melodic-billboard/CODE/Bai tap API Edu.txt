@@ -1,0 +1,180 @@
+ Level 1 (Dễ)
+API 1 - Continue Learning
+GET /api/learning-path/continue
+Business
+
+Trả về Learning Path mà User đang học.
+
+Response
+
+{
+   "learningPathId":1,
+   "career":"Backend Developer",
+   "progress":67,
+   "currentSubject":"LINQ",
+   "currentTopic":"GroupBy",
+   "completedTopic":24,
+   "totalTopic":36
+}
+
+Điều kiện
+
+lấy theo user đăng nhập
+progress tính theo Topic
+current topic là topic đầu tiên chưa hoàn thành
+nếu hoàn thành hết trả null
+
+👉 API này sẽ luyện:
+
+Join
+Count
+FirstOrDefault
+Any
+
+API 2
+GET /api/career/recommendation/history
+
+Business
+
+Lấy lịch sử Recommendation Quiz.
+
+Response
+
+[
+ {
+   "quizDate":"2026-07-20",
+   "career":"Backend Developer",
+   "score":92
+ },
+ {
+   "quizDate":"2026-06-10",
+   "career":"AI Engineer",
+   "score":80
+ }
+]
+🟡 Level 2
+API 3
+GET /api/learning-path/statistics
+
+Business
+
+Dashboard của User
+
+{
+   "learningPath":2,
+   "completedSubject":8,
+   "completedTopic":42,
+   "completedQuiz":15,
+   "averageQuizScore":84,
+   "learningDay":31
+}
+🟡 API 4
+GET /api/topic/{topicId}/next
+
+Business
+
+Sau khi học xong Topic.
+
+Trả về Topic tiếp theo.
+
+Nếu Subject hết
+
+↓
+
+Qua Subject tiếp.
+
+Nếu hết Learning Path
+
+↓
+
+return
+
+{
+   "completed":true
+}
+
+API này khá giống Duolingo.
+
+🟠 Level 3
+API 5
+GET /api/career/{careerId}/overview
+
+Response
+
+{
+   "career":"Backend Developer",
+   "learningPath":5,
+   "subject":18,
+   "topic":96,
+   "estimatedHour":180,
+   "beginner":40,
+   "intermediate":36,
+   "advanced":20
+}
+
+estimatedHour phải cộng tất cả EstimatedTime của Topic.
+
+🔴 Level 4
+API 6
+GET /api/admin/dashboard
+
+Response
+
+{
+   "totalUser":1320,
+   "activeLearning":542,
+   "completedLearningPath":210,
+   "topCareer":[...],
+   "newUserThisMonth":62
+}
+
+Đây là API dashboard thực tế.
+
+Có:
+
+GroupBy
+Count
+Sum
+OrderByDescending
+Take
+🔴 Level 5
+API 7 (Khó)
+GET /api/recommendation/recalculate
+
+Business
+
+Không lấy dữ liệu Recommendation đã lưu.
+
+Mà tính lại từ đầu.
+
+Flow
+
+RecommendationUserAnswer
+
+↓
+
+AnswerCareerWeight
+
+↓
+
+Group Career
+
+↓
+
+Sum Score
+
+↓
+
+Order Desc
+
+↓
+
+Top 3
+
+↓
+
+Return
+
+API này gần như bắt m phải viết lại thuật toán Recommendation.
+
+

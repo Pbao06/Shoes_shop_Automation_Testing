@@ -1,0 +1,55 @@
+Game Mobile: Endless Runner + Skin Shop
+Tóm tắt ý tưởng để bàn với team
+1. Ý tưởng cốt lõi
+
+Lấy cảm hứng từ T-Rex Runner (game khủng long offline của Chrome) — cơ chế đã được chứng minh gây nghiện với hàng tỷ lượt chơi toàn cầu — nhưng làm lại với:
+
+Nhân vật/theme riêng (không phải khủng long)
+Vật phẩm rơi ngẫu nhiên trong lúc chạy
+Hệ thống shop mua skin (mở khóa nhân vật, vật phẩm)
+
+Vì sao chọn hướng này:
+
+Core gameplay đơn giản, đã kiểm chứng thành công → rủi ro thấp, dễ hoàn thành cho team mới làm game
+Dễ build bằng Unity + C# (không cần học ngôn ngữ mới)
+Có sẵn công thức kiếm tiền rõ ràng (quảng cáo + IAP skin)
+2. Gameplay chi tiết
+Thành phần	Mô tả
+Core loop	Nhân vật tự động chạy, người chơi tap/vuốt để nhảy/né vật cản
+Độ khó	Tốc độ tăng dần theo thời gian sống, vật cản đa dạng dần
+Vật phẩm rơi ngẫu nhiên (loot)	Coin (thường), mảnh ghép/vật hiếm (random, tỉ lệ thấp)
+Thời lượng mỗi ván	Ngắn (30s–2 phút) → dễ chơi "thêm 1 ván nữa"
+Leaderboard	Điểm cao nhất, so với bạn bè (Google Play Games Services)
+3. Hệ thống Shop & Skin
+Skin thường: mở khóa bằng coin kiếm được khi chơi (free, cày là có)
+Skin hiếm/đặc biệt: mua bằng tiền thật (IAP) hoặc xem quảng cáo để mở
+Bộ sưu tập (collection): skin theo bộ chủ đề — tạo động lực "sưu tầm đủ bộ"
+Skin giới hạn thời gian (sự kiện Tết, Halloween...): tạo cảm giác khan hiếm, thúc đẩy mua ngay
+
+Gợi ý chủ đề skin: bắt đầu từ nhân vật "bọ" đơn giản, mở rộng dần theo bộ sưu tập côn trùng/động vật nhỏ — dễ vẽ, dễ làm nhiều biến thể mà không tốn nhiều công sức đồ họa.
+
+4. Tính năng giữ chân người chơi (retention)
+Nhiệm vụ hàng ngày (daily quest): ví dụ "chạy đạt 500m" → thưởng coin, kéo người chơi quay lại mỗi ngày
+Leaderboard bạn bè: tạo động lực cạnh tranh xã hội
+Sự kiện theo mùa: skin giới hạn, tạo FOMO (sợ bỏ lỡ)
+5. Mô hình kiếm tiền
+Nguồn thu	Cách hoạt động
+Quảng cáo (AdMob)	Xem ads để x2 coin sau khi thua; xem ads để hồi sinh chơi tiếp 1 lần
+IAP (mua trong app)	Mua skin premium, mua gói coin, bỏ quảng cáo vĩnh viễn
+Chi phí phát triển	Gần như $0 (Unity free, chỉ tốn $25 đăng ký Google Play Console 1 lần)
+6. Công nghệ sử dụng
+Engine: Unity (C# — dùng lại kiến thức đã có)
+Nền tảng đích: Android, xuất bản qua Google Play Console
+Tích hợp cần thiết: Google Play Games Services (leaderboard), AdMob (quảng cáo), Unity IAP (mua trong app)
+Không cần: Kotlin/Java — Unity tự đóng gói ra file chạy Android
+7. Lộ trình đề xuất (MVP)
+Tuần 1–2: Dựng core gameplay (nhân vật chạy, nhảy né vật cản, tăng độ khó dần)
+Tuần 3: Thêm hệ thống coin + vật phẩm rơi ngẫu nhiên
+Tuần 4: Làm shop + 3-5 skin cơ bản
+Tuần 5: Tích hợp AdMob + leaderboard
+Tuần 6: Test nội bộ, sửa lỗi, chuẩn bị asset (icon, screenshot)
+Tuần 7: Đăng Google Play Console (bản closed/internal testing trước)
+8. Rủi ro cần lưu ý
+Thị trường endless runner đã có nhiều đối thủ → cần chủ đề/skin đủ khác biệt để nổi bật
+Doanh thu quảng cáo cần lượng tải lớn mới đáng kể → giai đoạn đầu nên coi là dự án học + thử nghiệm, không kỳ vọng lợi nhuận ngay
+Cần đầu tư thêm cho marketing (TikTok, Facebook) nếu muốn tăng lượt tải sau khi launch

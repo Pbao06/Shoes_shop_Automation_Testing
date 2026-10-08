@@ -1,0 +1,8 @@
+Field	Required	Min Length	Max Length	Allowed Characters
+First Name	Yes	2	50	Unicode letters, spaces, hyphens, apostrophes, dots ([\p{L}\p{M} .'-])
+Last Name	Yes	2	50	Same as First Name
+Email	Yes	—	254 (RFC 5321)	Any non-whitespace, non-@ chars with name@domain.tld format
+Address	Yes	5	200	Any characters
+City	Yes	2	100	Unicode letters, spaces, hyphens, apostrophes, dots ([\p{L}\p{M} .'-])
+Postal Code	Yes	3 (excl. spaces)	20	Unicode letters, digits, spaces, hyphens, dots, # ([\p{L}\p{N} .'#-])
+Country	Yes	—	—	Must select: United States, United Kingdom, or France
