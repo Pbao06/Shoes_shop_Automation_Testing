@@ -1,25 +1,59 @@
 package com.example.page.admin;
+
 import com.example.page.*;
 import com.example.models.admin.*;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 
 public class Products extends BasePage {
 
     private By inputSearch = By.cssSelector("input[placeholder='Search products...']");
     // specific product/id/2
-    private By valueName = By.xpath("//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Product')]/preceding-sibling::th)+1] //p[1]");
-    private By valueSlug = By.xpath("//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Product')]/preceding-sibling::th)+1] //p[2]");
-    private By valueBrand = By.xpath("//tr[@data-testid='product-row-2']/td[     count(//th[contains(normalize-space(),'Brand')]/preceding-sibling::th) + 1 ]");
-    private By valueCate = By.xpath("//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Category')]/preceding-sibling::th)+1]");
-    private By valueSalePrice = By.xpath("//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Price')]/preceding-sibling::th)+1] //span[1]");
-    private By valuePrice = By.xpath("//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Price')]/preceding-sibling::th)+1] //span[2]");
+    private By valueName = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Product')]/preceding-sibling::th)+1] //p[1]");
+    private By valueSlug = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Product')]/preceding-sibling::th)+1] //p[2]");
+    private By valueBrand = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Brand')]/preceding-sibling::th) + 1 ]");
+    private By valueCate = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Category')]/preceding-sibling::th)+1]");
+    private By valueSalePrice = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Price')]/preceding-sibling::th)+1] //span[1]");
+    private By valuePrice = By.xpath(
+            "//tr[@data-testid='product-row-2']/td[count(//th[contains(normalize-space(),'Price')]/preceding-sibling::th)+1] //span[2]");
     private By iconEdit = By.xpath("//a[@href='/admin/products/2/edit']");
+    // delete part
+    private String deleteIcon = " //tr[@data-testid='product-row-2'] //button[@aria-label='Delete product']";
+    private By deleteButtonModel = By.xpath(" //button[normalize-space()='Delete']");
 
     public Products(WebDriver driver) {
         super(driver);
+    }
+
+    public boolean deleteProductPre(int id) // id user want to delete
+    {
+
+        String newDeleteString = deleteIcon.replace("2", String.valueOf(id));
+        waitForVisible(By.xpath(newDeleteString)).click();
+        waitForVisible(deleteButtonModel).click();
+        WebDriverWait waitTemp = new WebDriverWait(
+                driver,
+                Duration.ofSeconds(50));
+        String exampleDeleted = "//tr[@data-testid='product-row-anything']";
+        String actualDeleted = exampleDeleted.replace("anything", String.valueOf(id));
+        try {
+            return waitTemp.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(actualDeleted)));
+
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
     public Products SearchData() {
@@ -42,55 +76,57 @@ public class Products extends BasePage {
     }
 
     public boolean isEditSuccess(ProductEditClass data) {
-    // 1. Lấy và chuẩn hóa dữ liệu từ UI (chuyển hết về lower case & trim)
-    String actualName = waitForVisible(valueName).getText().trim().toLowerCase();
-    String actualSlug = waitForVisible(valueSlug).getText().trim().toLowerCase();
-    String actualBrand = waitForVisible(valueBrand).getText().trim().toLowerCase();
-    String actualCate = waitForVisible(valueCate).getText().trim().toLowerCase();
-    
-    String actualPrice = waitForVisible(valuePrice).getText().trim();
-    String actualSalePrice = waitForVisible(valueSalePrice).getText().trim();
+        // 1. Lấy và chuẩn hóa dữ liệu từ UI (chuyển hết về lower case & trim)
+        String actualName = waitForVisible(valueName).getText().trim().toLowerCase();
+        String actualSlug = waitForVisible(valueSlug).getText().trim().toLowerCase();
+        String actualBrand = waitForVisible(valueBrand).getText().trim().toLowerCase();
+        String actualCate = waitForVisible(valueCate).getText().trim().toLowerCase();
 
-    // 2. Chuẩn hóa dữ liệu Parameter đầu vào (chuyển về lower case & format giá tiền)
-    String expectedName = data.getProductName().trim().toLowerCase();
-    String expectedSlug = data.getSlug().trim().toLowerCase();
-    String expectedBrand = data.getBrand().trim().toLowerCase();
-    String expectedCategory = data.getCategory().trim().toLowerCase();
+        String actualPrice = waitForVisible(valuePrice).getText().trim();
+        String actualSalePrice = waitForVisible(valueSalePrice).getText().trim();
 
-    String expectedPrice = formatCurrency(data.getPrice());
-    String expectedSalePrice = formatCurrency(data.getSalePrice());
+        // 2. Chuẩn hóa dữ liệu Parameter đầu vào (chuyển về lower case & format giá
+        // tiền)
+        String expectedName = data.getProductName().trim().toLowerCase();
+        String expectedSlug = data.getSlug().trim().toLowerCase();
+        String expectedBrand = data.getBrand().trim().toLowerCase();
+        String expectedCategory = data.getCategory().trim().toLowerCase();
 
-    // 3. Kiểm tra từng trường
-    if (!actualName.contains(expectedName)) {
-        System.err.printf("❌ NAME LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedName, actualName);
-        return false;
+        String expectedPrice = formatCurrency(data.getPrice());
+        String expectedSalePrice = formatCurrency(data.getSalePrice());
+
+        // 3. Kiểm tra từng trường
+        if (!actualName.contains(expectedName)) {
+            System.err.printf("❌ NAME LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedName, actualName);
+            return false;
+        }
+
+        if (!actualSlug.contains(expectedSlug)) {
+            System.err.printf("❌ SLUG LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedSlug, actualSlug);
+            return false;
+        }
+
+        if (!actualBrand.contains(expectedBrand)) {
+            System.err.printf("❌ BRAND LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedBrand, actualBrand);
+            return false;
+        }
+
+        if (!actualCate.contains(expectedCategory)) {
+            System.err.printf("❌ CATEGORY LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedCategory, actualCate);
+            return false;
+        }
+
+        if (!actualPrice.contains(expectedPrice)) {
+            System.err.printf("❌ PRICE LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedPrice, actualPrice);
+            return false;
+        }
+
+        if (!actualSalePrice.contains(expectedSalePrice)) {
+            System.err.printf("❌ SALE PRICE LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedSalePrice,
+                    actualSalePrice);
+            return false;
+        }
+
+        return true;
     }
-
-    if (!actualSlug.contains(expectedSlug)) {
-        System.err.printf("❌ SLUG LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedSlug, actualSlug);
-        return false;
-    }
-
-    if (!actualBrand.contains(expectedBrand)) {
-        System.err.printf("❌ BRAND LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedBrand, actualBrand);
-        return false;
-    }
-
-    if (!actualCate.contains(expectedCategory)) {
-        System.err.printf("❌ CATEGORY LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedCategory, actualCate);
-        return false;
-    }
-
-    if (!actualPrice.contains(expectedPrice)) {
-        System.err.printf("❌ PRICE LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedPrice, actualPrice);
-        return false;
-    }
-
-    if (!actualSalePrice.contains(expectedSalePrice)) {
-        System.err.printf("❌ SALE PRICE LỆCH | Expected: '%s' | Actual UI: '%s'%n", expectedSalePrice, actualSalePrice);
-        return false;
-    }
-
-    return true;
-}
 }

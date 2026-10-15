@@ -15,8 +15,6 @@ public class CartPage extends BasePage {
 
     private By btnCheckOut = By.xpath("//button[normalize-space()='Checkout']");
 
-   
-
     public CartPage(WebDriver driver)
     {
         super(driver);

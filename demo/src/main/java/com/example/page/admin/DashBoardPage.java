@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DashBoardPage extends BasePage {
     private By productPage= By.xpath("//a[@href='/admin/products']");
+    private By orderPage= By.cssSelector("a[href='/admin/order']");
 
     public DashBoardPage(WebDriver driver)
     {
@@ -23,5 +24,11 @@ public class DashBoardPage extends BasePage {
         waitForVisible(productPage).click();
         wait.until(ExpectedConditions.urlContains("/products"));
         return new Products(driver);
+    }
+    public OrderPage clickOrder()
+    {
+        waitForVisible(orderPage).click();
+        wait.until(ExpectedConditions.urlContains("/order"));
+        return new OrderPage(driver);
     }
 }

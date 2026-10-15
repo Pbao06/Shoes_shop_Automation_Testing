@@ -52,7 +52,6 @@ public class ProductEdit extends BaseTest{
             .EditProduct(data)     // Truyền thẳng data
             .isEditSuccess(data);  // Truyền thẳng data
 
-    assertTrue(edited, "Test case fail - Edit Product validation failed");
-}
-    //String.valueOf(data.getPrice())
+        assertTrue(edited, "Test case fail - Edit Product validation failed");
+    }
 }
